@@ -15,8 +15,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Shopping List"
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(clearData))
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,7 +39,6 @@ class ViewController: UITableViewController {
         }
         ac.addAction(submitAction)
         present(ac, animated: true)
-
     }
     
     func submit (_ item: String) {
@@ -48,7 +47,10 @@ class ViewController: UITableViewController {
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
-
+    @objc func clearData () {
+        shopingListItems.removeAll()
+        tableView.reloadData()
+    }
 
 }
 
